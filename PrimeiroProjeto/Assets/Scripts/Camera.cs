@@ -2,17 +2,35 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Lava : MonoBehaviour {
-	public Transform player;
+public class Camera : MonoBehaviour {
+
+	public float velocidade;
+	public Transform spritePlayer;
 
 	// Use this for initialization
-	void Start () {
-		player = GameObject.FindGameObjectWithTag ("Player").transform;
+	void Start () 
+	{
+
 	}
 
 	// Update is called once per frame
-	void Update () {
-		Vector3 novaPosicao = new Vector3 (player.position.x, player.position.y, transform.position.z);
-		transform.position = Vector3.Lerp (transform.position, novaPosicao, Time.time);
+	void Update () 
+	{
+		Movimentacao();
+	}
+
+	void Movimentacao() {
+
+		if (Input.GetAxisRaw("Horizontal") > 0 ) {
+			transform.Translate (Vector2.right * velocidade * Time.deltaTime);
+			transform.eulerAngles = new Vector2(0, 0);
+		}
+
+		if (Input.GetAxisRaw("Horizontal") < 0 ) {
+			transform.Translate (Vector2.left * velocidade * Time.deltaTime);
+			transform.eulerAngles = new Vector2(0, 0);
+		}	
+	
+
 	}
 }
